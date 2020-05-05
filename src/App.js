@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import Header from './components/Header'
+import Characters from './components/Characters'
+
+const MainWrapper = styled.div`
+  background-color: #f2f2f2;
+  min-height: calc(100vh - 66px);
+  margin-top: 70px;
+`
 
 function App() {
+  const [characterName, setCharacterName] = useState('')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header>
+        <Header setCharacterName={setCharacterName} />
       </header>
-    </div>
-  );
+      <MainWrapper>
+        <Characters characterSearch={characterName} />
+      </MainWrapper>
+    </>
+  )
 }
 
-export default App;
+export default App
