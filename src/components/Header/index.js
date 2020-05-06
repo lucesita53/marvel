@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import { Redirect } from 'react-router-dom'
 import Logo from '../../images/MarvelLogo.svg'
 
 const Wrapper = styled.div`
@@ -16,24 +17,25 @@ const Wrapper = styled.div`
 const Marvel = styled.div`
   background-repeat: no-repeat;
   background-image: url(${Logo});
-  width: 80px;
+  width: 110px;
   margin: 0 10px;
 
   @media only screen and (min-width: 768px) {
     margin: 0 20px;
+    cursor: pointer;
   }
 `
 
 const SearchBar = styled.input`
   padding: 12px;
-  margin: 0.5em;
+  margin: 0.5em 0;
   font-size: 20px;
-
   font-family: Roboto;
   letter-spacing: 0px;
   color: #505050;
   border: none;
   border-left: 1px solid #a8a8a8;
+  width: -webkit-fill-available;
 
   @media only screen and (min-width: 768px) {
     font-size: 24px;
@@ -65,7 +67,7 @@ function Header({ setCharacterName }) {
 
   return (
     <Wrapper>
-      <Marvel />
+      <Marvel onClick={() => Redirect('https://developer.marvel.com/docs')} />
       <SearchBar placeholder="Buscar" type="text" value={search} onChange={handleChange} />
     </Wrapper>
   )

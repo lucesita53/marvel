@@ -1,25 +1,28 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import Header from './components/Header'
-import Characters from './components/Characters'
+import React, { Suspense } from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
+import Router from './Router'
+import { Default } from 'react-awesome-spinners'
 
-const MainWrapper = styled.div`
-  background-color: #f2f2f2;
-  min-height: calc(100vh - 66px);
-  margin-top: 70px;
-`
-
-function App() {
-  const [characterName, setCharacterName] = useState('')
+const Main = () => {
   return (
     <>
-      <header>
-        <Header setCharacterName={setCharacterName} />
-      </header>
-      <MainWrapper>
-        <Characters characterSearch={characterName} />
-      </MainWrapper>
+      <Helmet>
+        <title>{'Marvel'}</title>
+      </Helmet>
+      <Default />
+      <Router />
     </>
+  )
+}
+
+function App() {
+  return (
+    <Suspense fallback={<Default />}>
+      <BrowserRouter basename="/">
+        <Main />
+      </BrowserRouter>
+    </Suspense>
   )
 }
 
