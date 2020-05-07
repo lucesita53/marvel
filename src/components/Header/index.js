@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Redirect } from 'react-router-dom'
 import Logo from '../../images/MarvelLogo.svg'
 
 const Wrapper = styled.div`
@@ -14,7 +13,7 @@ const Wrapper = styled.div`
   background-color: #ffffff;
 `
 
-const Marvel = styled.div`
+const Marvel = styled.a`
   background-repeat: no-repeat;
   background-image: url(${Logo});
   width: 110px;
@@ -67,7 +66,7 @@ function Header({ setCharacterName }) {
 
   return (
     <Wrapper>
-      <Marvel onClick={() => Redirect('https://developer.marvel.com/docs')} />
+      <Marvel href="https://developer.marvel.com/docs" target="_blank" />
       <SearchBar placeholder="Buscar" type="text" value={search} onChange={handleChange} />
     </Wrapper>
   )

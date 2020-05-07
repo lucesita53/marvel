@@ -33,7 +33,9 @@ function Characters({ characterSearch }) {
         characters.map(
           (character) =>
             character.name.toLowerCase().includes(characterSearch.toLowerCase()) && (
-              <CharacterCard character={character} />
+              <div key={character.id}>
+                <CharacterCard character={character} />
+              </div>
             )
         )}
     </Wrapper>

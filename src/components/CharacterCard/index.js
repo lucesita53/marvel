@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
+import { ThemeContext } from '../ThemeContext'
 
 const Content = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ const Content = styled.div`
 
 const ButtonCard = styled.button`
   margin: 15px;
-  box-shadow: 0px 2px 13px #000000;
+  box-shadow: 0px 2px 13px ${(props) => (props.theme === 'white' ? '#000000' : '#FFFFFF')};
   display: flex;
   border: none;
   border-radius: 10px;
@@ -31,7 +32,7 @@ const ButtonCard = styled.button`
     margin: 30px;
 
     &:hover {
-      box-shadow: 0px 2px 13px #000000;
+      box-shadow: 0px 2px 13px ${(props) => (props.theme === 'white' ? '#000000' : '#FFFFFF')};
       cursor: pointer;
     }
   }
@@ -62,10 +63,12 @@ const Name = styled.div`
 `
 
 function CharacterCard({ character }) {
+  const theme = useContext(ThemeContext)
+
   const { name, thumbnail } = character
   const { path, extension } = thumbnail
   return (
-    <ButtonCard>
+    <ButtonCard theme={theme}>
       <Content image={`${path}.${extension}`}>
         <Name>{name}</Name>
       </Content>
