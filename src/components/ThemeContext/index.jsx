@@ -8,7 +8,7 @@ const theme = {
 }
 
 const ThemeProvider = (props) => {
-  return <ThemeContext.Provider value={theme.dark}>{props.children}</ThemeContext.Provider>
+  return <ThemeContext.Provider value={theme.light}>{props.children}</ThemeContext.Provider>
 }
 
 export { ThemeContext, ThemeProvider }

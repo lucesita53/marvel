@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import { ThemeContext } from '../ThemeContext'
+import CharacterDetailModal from '../CharacterDetailModal'
 
 const Content = styled.div`
   display: flex;
@@ -62,17 +63,31 @@ const Name = styled.div`
   }
 `
 
+function disableScroll() {
+  document.body.style.overflow = 'hidden'
+}
+
 function CharacterCard({ character }) {
   const theme = useContext(ThemeContext)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { name, thumbnail } = character
   const { path, extension } = thumbnail
   return (
-    <ButtonCard theme={theme}>
-      <Content image={`${path}.${extension}`}>
-        <Name>{name}</Name>
-      </Content>
-    </ButtonCard>
+    <>
+      <ButtonCard
+        theme={theme}
+        type="button"
+        onClick={() => {
+          setIsModalOpen(true)
+          disableScroll()
+        }}>
+        <Content image={`${path}.${extension}`}>
+          <Name>{name}</Name>
+        </Content>
+      </ButtonCard>
+      {isModalOpen && <CharacterDetailModal character={character} setIsModalOpen={setIsModalOpen} />}
+    </>
   )
 }
 
