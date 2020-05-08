@@ -13,13 +13,20 @@ const ModalWrapper = styled.div`
 const ModalContent = styled.div`
   position: fixed;
   background: white;
-  width: 437px;
-  height: 448px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
   z-index: 2;
+
+  @media only screen and (min-width: 768px) {
+    border-radius: 5px;
+    width: 437px;
+    height: 448px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `
 
 const ModalBackground = styled.div`
@@ -54,6 +61,14 @@ const CloseButton = styled.button`
   }
 `
 
+const Title = styled.div`
+  color: #505050;
+  font-family: Montserrat;
+  font-weight: bold;
+  margin-left: 20px;
+  font-size: 23px;
+`
+
 function enableScroll() {
   document.body.style.overflow = 'scroll'
 }
@@ -72,6 +87,8 @@ function CharacterDetailModal({ character, setIsModalOpen }) {
             x
           </CloseButton>
         </CloseButtonContainer>
+
+        <Title>{character.name}</Title>
       </ModalContent>
       <ModalBackground
         onClick={() => {
