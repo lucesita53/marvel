@@ -9,6 +9,14 @@ const getCharacters = async (nameStart) => {
   return data
 }
 
+export const getCharacterRandom = async () => {
+  const random = Math.floor(Math.random() * (1493 - 0)) + 0
+  const data = await axios.get(
+    `http://gateway.marvel.com/v1/public/characters?limit=1&offset=${random}&apikey=${getApiKey()}&hash=${getHash()}&ts=${getTimestamp()}`
+  )
+  return data
+}
+
 export const getCharacterComics = async (id) => {
   const { data } = await axios.get(
     `http://gateway.marvel.com/v1/public/characters/${id}/comics?apikey=${getApiKey()}&hash=${getHash()}&ts=${getTimestamp()}`
