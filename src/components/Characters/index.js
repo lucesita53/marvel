@@ -15,26 +15,29 @@ const Wrapper = styled.div`
 `
 
 function Characters({ characterSearch }) {
-  const { status, data } = useQuery('characters', () => getCharacters('spider'))
+  const { status, data, refetch } = useQuery('characters', () => getCharacters(characterSearch), { manual: true })
   const [characters, setCharacters] = useState([])
 
   useEffect(() => {
-    if (status && status === 'success') {
+    if (status && status === 'success' && data) {
       setCharacters(data.data.data.results)
     }
-  }, [status])
+  }, [status, data])
+
+  useEffect(() => {
+    if (characterSearch.length > 2 || characterSearch === '') {
+      refetch()
+    }
+  }, [characterSearch, refetch])
 
   return (
     <Wrapper>
       {characters.length > 0 &&
-        characters.map(
-          (character) =>
-            character.name.toLowerCase().includes(characterSearch.toLowerCase()) && (
-              <div key={character.id}>
-                <CharacterCard character={character} />
-              </div>
-            )
-        )}
+        characters.map((character) => (
+          <div key={character.id}>
+            <CharacterCard character={character} />
+          </div>
+        ))}
     </Wrapper>
   )
 }
