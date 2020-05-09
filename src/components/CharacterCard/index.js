@@ -1,6 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useQuery } from 'react-query'
 import { ThemeContext } from '../ThemeContext'
+import { getCharacterComics } from '../../utils/APICall'
 import CharacterDetailModal from '../CharacterDetailModal'
 
 const Content = styled.div`
@@ -70,9 +72,19 @@ function disableScroll() {
 function CharacterCard({ character }) {
   const theme = useContext(ThemeContext)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [comics, setComics] = useState([])
 
-  const { name, thumbnail } = character
+  const { name, id, thumbnail } = character
   const { path, extension } = thumbnail
+
+  const { status, data } = useQuery('comics', () => getCharacterComics(id))
+
+  useEffect(() => {
+    if (status && status === 'success' && data) {
+      setComics(data.data.data.results)
+    }
+  }, [status, data])
+
   return (
     <>
       <ButtonCard
@@ -86,7 +98,9 @@ function CharacterCard({ character }) {
           <Name>{name}</Name>
         </Content>
       </ButtonCard>
-      {isModalOpen && <CharacterDetailModal character={character} setIsModalOpen={setIsModalOpen} />}
+      {isModalOpen && (
+        <CharacterDetailModal character={character} comics={comics} setIsModalOpen={setIsModalOpen} status={status} />
+      )}
     </>
   )
 }

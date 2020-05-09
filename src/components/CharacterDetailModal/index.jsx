@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import ComicItem from '../ComicItem'
+import NotFound from '../NotFound'
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -18,6 +20,7 @@ const ModalContent = styled.div`
   top: 0;
   left: 0;
   z-index: 2;
+  overflow-y: scroll;
 
   @media only screen and (min-width: 768px) {
     border-radius: 5px;
@@ -67,13 +70,20 @@ const Title = styled.div`
   font-weight: bold;
   margin-left: 20px;
   font-size: 23px;
+  margin-bottom: 15px;
+`
+
+const Comic = styled.div`
+  padding: 10px;
 `
 
 function enableScroll() {
   document.body.style.overflow = 'scroll'
 }
 
-function CharacterDetailModal({ character, setIsModalOpen }) {
+function CharacterDetailModal({ character, comics, setIsModalOpen, status }) {
+  const { name } = character
+
   return (
     <ModalWrapper>
       <ModalContent>
@@ -88,7 +98,16 @@ function CharacterDetailModal({ character, setIsModalOpen }) {
           </CloseButton>
         </CloseButtonContainer>
 
-        <Title>{character.name}</Title>
+        <Title>{name}</Title>
+        <Comic>
+          {comics.length > 0
+            ? comics.map((comic) => (
+                <div key={comic.id}>
+                  <ComicItem comic={comic} />
+                </div>
+              ))
+            : status === 'success' && <NotFound search={name} comics />}
+        </Comic>
       </ModalContent>
       <ModalBackground
         onClick={() => {

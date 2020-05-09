@@ -18,15 +18,8 @@ export const getCharacterRandom = async () => {
 }
 
 export const getCharacterComics = async (id) => {
-  const { data } = await axios.get(
-    `http://gateway.marvel.com/v1/public/characters/${id}/comics?apikey=${getApiKey()}&hash=${getHash()}&ts=${getTimestamp()}`
-  )
-  return data
-}
-
-export const getComicDetail = async (id) => {
-  const { data } = await axios.get(
-    `http://gateway.marvel.com/v1/public/comics/${id}?apikey=${getApiKey()}&hash=${getHash()}&ts=${getTimestamp()}`
+  const data = await axios.get(
+    `http://gateway.marvel.com/v1/public/characters/${id}/comics?orderBy=modified&apikey=${getApiKey()}&hash=${getHash()}&ts=${getTimestamp()}`
   )
   return data
 }

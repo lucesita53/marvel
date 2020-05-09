@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useQuery } from 'react-query'
 import getCharacters, { getCharacterRandom } from '../../utils/APICall'
 import CharacterCard from '../CharacterCard'
+import NotFound from '../NotFound'
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -49,17 +50,19 @@ function Characters({ characterSearch }) {
   }, [characterSearch, refetchSearch, refetchRandom])
 
   return (
-    <Wrapper>
+    <>
       {characters.length > 0 ? (
-        characters.map((character) => (
-          <div key={character.id}>
-            <CharacterCard character={character} />
-          </div>
-        ))
+        <Wrapper>
+          {characters.map((character) => (
+            <div key={character.id}>
+              <CharacterCard character={character} />
+            </div>
+          ))}
+        </Wrapper>
       ) : (
-        <span>NOT FOUND</span>
+        characterSearch.length > 2 && <NotFound search={characterSearch} />
       )}
-    </Wrapper>
+    </>
   )
 }
 
