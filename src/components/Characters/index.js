@@ -15,10 +15,15 @@ const Wrapper = styled.div`
 `
 
 function Characters({ characterSearch }) {
-  const { status, data, error, isFetching } = useQuery('characters', getCharacters)
-  const characters = (data && data.data && data.data.results) || []
+  const { status, data } = useQuery('characters', () => getCharacters('spider'))
+  const [characters, setCharacters] = useState([])
 
-  console.log(data && data.data && data.data.results)
+  useEffect(() => {
+    if (status && status === 'success') {
+      setCharacters(data.data.data.results)
+    }
+  }, [status])
+
   return (
     <Wrapper>
       {characters.length > 0 &&
