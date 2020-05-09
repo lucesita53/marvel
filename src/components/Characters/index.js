@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 import { useQuery } from 'react-query'
+import getCharacters from '../../utils/APICall'
 import CharacterCard from '../CharacterCard'
-import getTimestamp, { getApiKey, getHash } from '../../utils/helper'
 
 const Wrapper = styled.div`
   display: inline-flex;
@@ -14,13 +13,6 @@ const Wrapper = styled.div`
     margin: 20px 40px;
   }
 `
-
-const getCharacters = async () => {
-  const { data } = await axios.get(
-    `http://gateway.marvel.com/v1/public/characters?apikey=${getApiKey()}&hash=${getHash()}&ts=${getTimestamp()}`
-  )
-  return data
-}
 
 function Characters({ characterSearch }) {
   const { status, data, error, isFetching } = useQuery('characters', getCharacters)
