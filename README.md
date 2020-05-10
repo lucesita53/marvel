@@ -8,9 +8,9 @@ Production URL: https://marvel-git-master.lucesita53.now.sh/
 
 #### Stories:
 
-**M-001**: Project structure, library installation, search page and basic API calls.
-**M-002**: Add comic detail feature.
-**M-003**: Update Readme file.
+- **M-001**: Project structure, library installation, search page and basic API calls.
+- **M-002**: Add comic detail feature.
+- **M-003**: Update Readme file.
 
 #### Considerations:
 
