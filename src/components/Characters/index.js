@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   }
 `
 
-function Characters({ characterSearch }) {
+function Characters({ characterSearch, history }) {
   const { status: allStatus, data: allData, refetch: refetchSearch } = useQuery(
     'characters',
     () => getCharacters(characterSearch),
@@ -36,10 +36,15 @@ function Characters({ characterSearch }) {
   }, [allStatus, allData, characterSearch])
 
   useEffect(() => {
-    if (randomStatus && randomStatus === 'success' && randomData) {
+    if (
+      randomStatus &&
+      randomStatus === 'success' &&
+      randomData &&
+      (characterSearch.length < 2 || characterSearch.length === 0)
+    ) {
       setCharacters(randomData.data.data.results)
     }
-  }, [randomStatus, randomData])
+  }, [randomStatus, randomData, characterSearch])
 
   useEffect(() => {
     if (characterSearch.length > 2) {
@@ -55,7 +60,7 @@ function Characters({ characterSearch }) {
         <Wrapper>
           {characters.map((character) => (
             <div key={character.id}>
-              <CharacterCard character={character} />
+              <CharacterCard character={character} history={history} />
             </div>
           ))}
         </Wrapper>
