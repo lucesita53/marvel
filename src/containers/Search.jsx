@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react'
 import styled from 'styled-components'
-// import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import Header from '../components/Header'
 import Characters from '../components/Characters'
 import ComicDetail from '../components/ComicDetail'
@@ -16,8 +16,14 @@ const Search = ({ history }) => {
   const characterURL = URLparams.get('character')
   const comicURL = URLparams.get('comic')
 
+  const { id } = useParams()
+
   const [characterName, setCharacterName] = useState('')
+  const [comicName, setComicName] = useState('')
+
   const theme = useContext(ThemeContext)
+
+  const renderDetail = window.document.URL.includes('/comic-detail')
 
   useEffect(() => {
     if (characterURL) {
@@ -25,18 +31,35 @@ const Search = ({ history }) => {
     }
   }, [setCharacterName, characterURL])
 
+  useEffect(() => {
+    if (comicURL) {
+      setComicName(comicURL)
+    }
+  }, [setComicName, comicURL])
+
   return (
     <>
       <header>
-        <Header setCharacterName={setCharacterName} characterName={characterName} />
+        <Header
+          setCharacterName={setCharacterName}
+          setComicName={setComicName}
+          returnSearch={() => history.push('/')}
+          characterName={characterName}
+        />
       </header>
-      {!comicURL ? (
+      {renderDetail ? (
+        id && (
+          <MainWrapper theme={theme}>
+            <ComicDetail comicId={id} />
+          </MainWrapper>
+        )
+      ) : comicName === '' ? (
         <MainWrapper theme={theme}>
-          <Characters characterSearch={characterName} />
+          <Characters characterSearch={characterName} history={history} />
         </MainWrapper>
       ) : (
         <MainWrapper theme={theme}>
-          <ComicDetail comicTitle={comicURL} />
+          <ComicDetail comicTitle={comicName} />
         </MainWrapper>
       )}
     </>

@@ -35,14 +35,14 @@ const Description = styled.div`
   font-size: 12px;
 `
 
-function ComicItem({ comic }) {
-  const { thumbnail, title, description } = comic
+function ComicItem({ history, comic }) {
+  const { thumbnail, title, description, id } = comic
   const { path, extension } = thumbnail
 
   const imagePath = path.replace('http', 'https')
 
   return (
-    <Wrapper>
+    <Wrapper onClick={() => history.push(`/comic-detail/${id}`)}>
       <Image src={`${imagePath}.${extension}`} />
       <TextWrapper>
         <Title>{title}</Title>

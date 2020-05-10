@@ -57,9 +57,13 @@ const SearchBar = styled.input`
   }
 `
 
-function Header({ setCharacterName, characterName }) {
+function Header({ setCharacterName, setComicName, returnSearch, characterName }) {
   const handleChange = (event) => {
     setCharacterName(event.target.value)
+    if (event.target.value.length > 2) {
+      setComicName('')
+      returnSearch()
+    }
   }
 
   return (

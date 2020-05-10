@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useQuery } from 'react-query'
 // import { ThemeContext } from '../ThemeContext'
-import { getComicByName } from '../../utils/APICall'
+import { getComicByName, getComicById } from '../../utils/APICall'
 import { monthNames } from '../../utils/helper'
 
 const Wrapper = styled.div`
@@ -20,7 +20,7 @@ const Image = styled.div`
   background-size: cover;
   background-image: url(${(props) => props.src});
   border: none;
-  width: 300x;
+  width: 300px;
   height: 500px;
 
   @media only screen and (min-width: 768px) {
@@ -36,6 +36,7 @@ const TextWrapper = styled.div`
 
   @media only screen and (min-width: 768px) {
     padding: 0 50px;
+    width: calc(100% - 645px);
   }
 `
 
@@ -60,6 +61,7 @@ const Item = styled.div`
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.7px;
+  text-transform: capitalize;
 
   @media only screen and (min-width: 768px) {
     font-size: 18px;
@@ -85,10 +87,9 @@ const Description = styled.div`
   }
 `
 
-function ComicDetail({ comicTitle }) {
+function ComicDetail({ comicTitle, comicId }) {
   const [comic, setComic] = useState(null)
-
-  const { status, data } = useQuery('comic', () => getComicByName(comicTitle))
+  const { status, data } = useQuery('comic', () => (comicId ? getComicById(comicId) : getComicByName(comicTitle)))
 
   useEffect(() => {
     if (status && status === 'success' && data) {
@@ -110,16 +111,10 @@ function ComicDetail({ comicTitle }) {
 
   const getItems = (comicInfo) => {
     let published = 'N/A'
-    let writer = 'N/A'
-    let penciler = 'N/A'
-    let artist = 'N/A'
-
-    console.log(comicInfo)
-
     const datePublished = comicInfo.dates.find((date) => date.type === 'onsaleDate').date
+
     if (datePublished) {
       const transformDate = new Date(datePublished)
-      // console.log(transformDate)
       published = `${
         monthNames[transformDate.getMonth() - 1]
       } ${transformDate.getDate()}, ${transformDate.getFullYear()}`
@@ -128,9 +123,11 @@ function ComicDetail({ comicTitle }) {
     return (
       <Items>
         <Item>{`Published: ${published}`}</Item>
-        <Item>{`Writer: ${writer}`}</Item>
-        <Item>{`Penciler: ${penciler}`}</Item>
-        <Item>{`Cover Artist: ${artist}`}</Item>
+        {comicInfo.creators &&
+          comicInfo.creators.items.length > 0 &&
+          comicInfo.creators.items.map((item) => (
+            <Item key={`${item.role} - ${item.name}`}>{`${item.role}: ${item.name}`}</Item>
+          ))}
       </Items>
     )
   }

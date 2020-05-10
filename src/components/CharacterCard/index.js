@@ -69,7 +69,7 @@ function disableScroll() {
   document.body.style.overflow = 'hidden'
 }
 
-function CharacterCard({ character }) {
+function CharacterCard({ character, history }) {
   const theme = useContext(ThemeContext)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [comics, setComics] = useState([])
@@ -101,7 +101,13 @@ function CharacterCard({ character }) {
         </Content>
       </ButtonCard>
       {isModalOpen && (
-        <CharacterDetailModal character={character} comics={comics} setIsModalOpen={setIsModalOpen} status={status} />
+        <CharacterDetailModal
+          history={history}
+          character={character}
+          comics={comics}
+          setIsModalOpen={setIsModalOpen}
+          status={status}
+        />
       )}
     </>
   )

@@ -12,6 +12,7 @@ const Router = () => {
         <LastLocationProvider>
           <Switch>
             <Route exact path="/" component={Search} />
+            <Route exact path="/comic-detail/:id" component={Search} />
           </Switch>
         </LastLocationProvider>
       </ThemeProvider>

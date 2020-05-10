@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   }
 `
 
-function Characters({ characterSearch }) {
+function Characters({ characterSearch, history }) {
   const { status: allStatus, data: allData, refetch: refetchSearch } = useQuery(
     'characters',
     () => getCharacters(characterSearch),
@@ -60,7 +60,7 @@ function Characters({ characterSearch }) {
         <Wrapper>
           {characters.map((character) => (
             <div key={character.id}>
-              <CharacterCard character={character} />
+              <CharacterCard character={character} history={history} />
             </div>
           ))}
         </Wrapper>
