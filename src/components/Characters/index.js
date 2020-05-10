@@ -36,10 +36,15 @@ function Characters({ characterSearch }) {
   }, [allStatus, allData, characterSearch])
 
   useEffect(() => {
-    if (randomStatus && randomStatus === 'success' && randomData) {
+    if (
+      randomStatus &&
+      randomStatus === 'success' &&
+      randomData &&
+      (characterSearch.length < 2 || characterSearch.length === 0)
+    ) {
       setCharacters(randomData.data.data.results)
     }
-  }, [randomStatus, randomData])
+  }, [randomStatus, randomData, characterSearch])
 
   useEffect(() => {
     if (characterSearch.length > 2) {

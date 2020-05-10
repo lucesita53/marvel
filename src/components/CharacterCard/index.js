@@ -53,15 +53,15 @@ const Name = styled.div`
   color: #ffffff;
   background-color: rgba(0, 0, 0, 0.7);
   align-self: flex-end;
+  margin: 0 13px;
   margin-bottom: 17px;
-  margin-left: 13px;
   border-radius: 10px;
   padding: 5px;
 
   @media only screen and (min-width: 768px) {
     font-size: 23px;
+    margin: 0 23px;
     margin-bottom: 27px;
-    margin-left: 23px;
   }
 `
 
@@ -76,6 +76,8 @@ function CharacterCard({ character }) {
 
   const { name, id, thumbnail } = character
   const { path, extension } = thumbnail
+
+  const imagePath = path.replace('http', 'https')
 
   const { status, data } = useQuery('comics', () => getCharacterComics(id))
 
@@ -94,7 +96,7 @@ function CharacterCard({ character }) {
           setIsModalOpen(true)
           disableScroll()
         }}>
-        <Content image={`${path}.${extension}`}>
+        <Content image={`${imagePath}.${extension}`}>
           <Name>{name}</Name>
         </Content>
       </ButtonCard>

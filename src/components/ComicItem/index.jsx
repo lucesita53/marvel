@@ -23,7 +23,7 @@ const TextWrapper = styled.div`
 const Title = styled.div`
   color: #505050;
   font-family: Montserrat;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 14px;
 `
 
@@ -31,6 +31,7 @@ const Description = styled.div`
   padding-top: 10px;
   color: #505050;
   font-family: Montserrat;
+  font-weight: 300;
   font-size: 12px;
 `
 
@@ -38,9 +39,11 @@ function ComicItem({ comic }) {
   const { thumbnail, title, description } = comic
   const { path, extension } = thumbnail
 
+  const imagePath = path.replace('http', 'https')
+
   return (
     <Wrapper>
-      <Image src={`${path}.${extension}`} />
+      <Image src={`${imagePath}.${extension}`} />
       <TextWrapper>
         <Title>{title}</Title>
         <Description>{`${description ? `${description.split(' ').splice(0, 10).join(' ')}...` : ''}`}</Description>
