@@ -1,3 +1,21 @@
+### Marvel App v1.2.1
+
+Considerations:
+
+- Some elements of the design where not specified or available to inspect, so I had to use my own criteria.
+- Many data queries could not be performed properlly because the API didn't provide enough support. For example: a search by name is performed by exact **name** or **nameStartWith**.
+- Some requirements were not clear, so I had to use my own criteria.
+- In my opinion, the time to complete all features was not enough. Maybe, if I was more familiarized with technologies stack, I would be able to delivery on time.
+- M-001 was the first story, and on the first PR I described all merging process.
+
+This version is missing the following requirements:
+
+- Favorites filter: I would implement it with Context API, storing favorits elements by id.
+- Unit test: I would implement unit test with Jest, covering all the main components and running them before each commit.
+- URL searching: I would implement it, detecting URL on search bar and use it to set parameters to call API.
+- Query string: The browser URL detects and filters only by one character, not many. And when you search by one character and one comic, shows the detail of the first comic that API found with that name.
+- Issue number: that one could't be include on the query, because "#" is used for internal elements reference by id.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
