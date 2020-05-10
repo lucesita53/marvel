@@ -81,7 +81,7 @@ function enableScroll() {
   document.body.style.overflow = 'scroll'
 }
 
-function CharacterDetailModal({ character, comics, setIsModalOpen, status }) {
+function CharacterDetailModal({ character, comics, setIsModalOpen, status, history }) {
   const { name } = character
 
   return (
@@ -103,7 +103,7 @@ function CharacterDetailModal({ character, comics, setIsModalOpen, status }) {
           {comics.length > 0
             ? comics.map((comic) => (
                 <div key={comic.id}>
-                  <ComicItem comic={comic} />
+                  <ComicItem history={history} comic={comic} />
                 </div>
               ))
             : status === 'success' && <NotFound search={name} comics />}

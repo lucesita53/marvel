@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Logo from '../../images/MarvelLogo.svg'
 
@@ -16,10 +16,11 @@ const Wrapper = styled.div`
 const Marvel = styled.a`
   background-repeat: no-repeat;
   background-image: url(${Logo});
-  width: 110px;
-  margin: 0 10px;
+  width: 100px !important;
+  margin: 0;
 
   @media only screen and (min-width: 768px) {
+    width: 110px;
     margin: 0 20px;
     cursor: pointer;
   }
@@ -34,9 +35,9 @@ const SearchBar = styled.input`
   color: #505050;
   border: none;
   border-left: 1px solid #a8a8a8;
-  width: -webkit-fill-available;
 
   @media only screen and (min-width: 768px) {
+    width: -webkit-fill-available;
     font-size: 24px;
   }
 
@@ -56,18 +57,19 @@ const SearchBar = styled.input`
   }
 `
 
-function Header({ setCharacterName }) {
-  const [search, setSearch] = useState('')
-
+function Header({ setCharacterName, setComicName, returnSearch, characterName }) {
   const handleChange = (event) => {
-    setSearch(event.target.value)
     setCharacterName(event.target.value)
+    if (event.target.value.length > 2) {
+      setComicName('')
+      returnSearch()
+    }
   }
 
   return (
     <Wrapper>
       <Marvel href="https://developer.marvel.com/docs" target="_blank" />
-      <SearchBar placeholder="Buscar" type="text" value={search} onChange={handleChange} />
+      <SearchBar placeholder="Buscar" type="text" value={characterName} onChange={handleChange} />
     </Wrapper>
   )
 }
