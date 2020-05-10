@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { LastLocationProvider } from 'react-router-last-location'
 import { ThemeProvider } from './components/ThemeContext'
 
-const Home = React.lazy(() => import('./containers/Home'))
+const Search = React.lazy(() => import('./containers/Search'))
 
 const Router = () => {
   return (
@@ -11,7 +11,8 @@ const Router = () => {
       <ThemeProvider>
         <LastLocationProvider>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Search} />
+            <Route exact path="/comic-detail/:id" component={Search} />
           </Switch>
         </LastLocationProvider>
       </ThemeProvider>
